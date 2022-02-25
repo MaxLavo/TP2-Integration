@@ -37,13 +37,12 @@ workflows:
     jobs:
       - Checkout_and_unit_test
       - node/test:
-         test-results-for: jest
          requires:
            - Checkout_and_unit_test
       
       - integrateFrontend:
           requires:
-            - "Checkout_and_unit_test"
+            - "node/test"
       - deploy:
           requires:
             - "integrateFrontend"
