@@ -4,9 +4,8 @@ orbs:
 jobs:
 
   Checkout_and_unit_test:
-    install-node-example:
-      docker:
-        -image: 'cimg/node:17.4.0'
+    ocker:
+      -image: 'cimg/node:17.4.0'
     machine: true
     steps:
       - checkout
