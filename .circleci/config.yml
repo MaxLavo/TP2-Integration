@@ -4,13 +4,11 @@ orbs:
 jobs:
 
   Checkout_and_unit_test:
-    docker:
-      -image: 'cimg/node:17.4.0'
     machine: true
     steps:
       - checkout
-      - node/test:
-          test-result-for: jest
+      - node/test
+
   integrateFrontend:
     machine: true
     steps:
@@ -39,6 +37,7 @@ workflows:
   build:
     jobs:
       - Checkout_and_unit_test
+      
       - integrateFrontend:
           requires:
             - "Checkout_and_unit_test"
