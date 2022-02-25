@@ -16,7 +16,7 @@ jobs:
       - run: cd 3w5-h22-tp2-backend && npm install
       - run: cd ..
       - run: cd 3w5-h22-tp2-frontend && npm install
-      - run: npm run build
+      - run: npm build
       - run: cd ..
       - run: cd 3w5-h22-tp2-backend
       - run: mkdir public
@@ -38,6 +38,8 @@ workflows:
       - Checkout_and_unit_test
       - node/test:
          test-results-for: jest
+         requires:
+           - Checkout_and_unit_test
       
       - integrateFrontend:
           requires:
