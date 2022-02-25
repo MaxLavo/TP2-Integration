@@ -1,22 +1,36 @@
 version: 2.1
 orbs:
-  node: circleci/node@x.y
+  node: circleci/node@5.0.0
 jobs:
-  docker:
-    - image: cimg/node:17.4.0
+
   Checkout_and_unit_test:
     machine: true
     steps:
       - checkout
-      - run: npm run test
+      - run: node/test
   integrateFrontend:
     machine: true
     steps:
-      - run: echo "backend déployé"
+      - run: git clone https://github.com/MaxLavo/3w5-h22-tp2-frontend.git
+      - run: git clone https://github.com/MaxLavo/3w5-h22-tp2-backend.git
+      - run: cd 3w5-h22-tp2-backend && npm install
+      - run: cd ..
+      - run: cd 3w5-h22-tp2-frontend && npm install
+      - run: npm run build
+      - run: cd ..
+      - run: cd 3w5-h22-tp2-backend
+      - run: mkdir public
+      - run: cp -rT 3w5-h22-tp2-frontend 3w5-h22-tp2-backend
+      - persist_to_workspace:
+          root: .
+          paths:
+            - "3w5-h22-tp2-backend"
   deploy:
-    maxhine: true
+    machine: true
     steps:
-      - run: echo "ok"
+      - attach_workspace:
+          at: .
+      - run: ls -RL
   
 workflows:
   build:
@@ -28,4 +42,4 @@ workflows:
       - deploy:
           requires:
             - "deploy_backend"
-
+#yes
