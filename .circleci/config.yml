@@ -7,6 +7,7 @@ jobs:
     machine: true
     steps:
       - checkout
+      - run: npm install
       - run: npm run test
 
   integrateFrontend:
@@ -38,13 +39,11 @@ workflows:
     jobs:
       
 
-      
-      - integrateFrontend
-
-      - Checkout_and_unit_test:
+      - Checkout_and_unit_test
+      - integrateFrontend:
           requires: 
-            - integrateFrontend
+            - Checkout_and_unit_test
       - deploy:
           requires:
-            - "Checkout_and_unit_test"
+            - "integrateFrontend"
 #yes
