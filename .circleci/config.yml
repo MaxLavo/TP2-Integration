@@ -41,7 +41,7 @@ workflows:
       
       - integrateFrontend:
           requires:
-            - "node/test"
+            - "Checkout-Checkout_and_unit_test"
       - deploy:
           requires:
             - "integrateFrontend"
