@@ -1,0 +1,31 @@
+version: 2.1
+orbs:
+  node: circleci/node@x.y
+jobs:
+  docker:
+    - image: cimg/node:17.4.0
+  Checkout_and_unit_test:
+    machine: true
+    steps:
+      - checkout
+      - run: npm run test
+  integrateFrontend:
+    machine: true
+    steps:
+      - run: echo "backend déployé"
+  deploy:
+    maxhine: true
+    steps:
+      - run: echo "ok"
+  
+workflows:
+  build:
+    jobs:
+      - Checkout_and_unit_test
+      - deploy_backend:
+          requires:
+            - "Checkout_and_unit_test"
+      - deploy:
+          requires:
+            - "deploy_backend"
+
