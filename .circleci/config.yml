@@ -7,7 +7,6 @@ jobs:
     machine: true
     steps:
       - checkout
-      - node/test
 
   integrateFrontend:
     machine: true
@@ -37,6 +36,8 @@ workflows:
   build:
     jobs:
       - Checkout_and_unit_test
+      - node/test:
+         test-results-for: jest
       
       - integrateFrontend:
           requires:
