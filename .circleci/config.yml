@@ -36,10 +36,10 @@ workflows:
   build:
     jobs:
       - Checkout_and_unit_test
-      - deploy_backend:
+      - integrateFrontend:
           requires:
             - "Checkout_and_unit_test"
       - deploy:
           requires:
-            - "deploy_backend"
+            - "integrateFrontend"
 #yes
